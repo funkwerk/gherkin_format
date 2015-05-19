@@ -1,6 +1,8 @@
 Formatter for Gherkin Files
 ===========================
 
+[![Build Status](https://travis-ci.org/funkwerk/gherkin_format.svg)](https://travis-ci.org/funkwerk/gherkin_format)
+
 This tool formats gherkin files.
 
 Usage
