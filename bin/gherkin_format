@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+require 'gherkin_format'
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = 'Usage: gherkin_format [files]'
+  opts.on('-v', '--[no-]verbose', 'Run verbosely') do |verbose|
+    options[:verbose] = verbose
+  end
+  opts.on('-r', '--[no-]replace', 'Replaces input files') do |replace|
+    options[:replace] = replace
+  end
+end.parse!
+
+formatter = GherkinFormat.new
+ARGV.each do |file|
+  formatter.format file, options
+end
