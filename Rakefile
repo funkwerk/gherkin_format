@@ -14,11 +14,11 @@ end
 
 task test: :cli_test
 task :cli_test do
-  gherkin_format(%w(foo.feature))
+  gherkin_format(%w(test/clean.feature))
 end
 
 def gherkin_format(args)
-  sh "ruby -ilib lib/* bin/gherkin_format #{args.join ' '}"
+  sh "RUBYLIB=lib/#{ENV['RUBYLIB']} bin/gherkin_format #{args.join ' '}"
 end
 
 desc 'Publishes the Gem'
