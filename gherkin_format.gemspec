@@ -7,6 +7,6 @@ Gem::Specification.new do |s|
   s.authors     = ['Stefan Rohe']
   s.homepage    = 'http://github.com/funkwerk/gherkin_format/'
   s.files       = `git ls-files`.split("\n")
-  s.executables = s.files.grep(/^bin\//) { |file| File.basename(file) }
+  s.executables = s.files.grep(%r{^bin/}) { |file| File.basename(file) }
   s.add_runtime_dependency 'gherkin', ['>= 2.12.2']
 end
