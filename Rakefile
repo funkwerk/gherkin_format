@@ -18,7 +18,8 @@ task :cli_test do
 end
 
 def gherkin_format(args)
-  sh "RUBYLIB=lib/#{ENV['RUBYLIB']} bin/gherkin_format #{args.join ' '}"
+  rubylib = "RUBYLIB=lib/:#{ENV['RUBYLIB']}"
+  sh "#{rubylib} bin/gherkin_format #{args.join ' '}"
 end
 
 desc 'Publishes the Gem'
