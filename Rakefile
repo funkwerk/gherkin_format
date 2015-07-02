@@ -12,7 +12,7 @@ end
 
 desc 'Publishes the Gem'
 task :push do
-  sh 'gem push gherkin_format-0.0.2-gem'
+  sh 'gem push gherkin_format-0.0.2.gem'
 end
 
 desc 'Checks ruby style'
