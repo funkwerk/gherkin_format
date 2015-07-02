@@ -1,0 +1,89 @@
+<%
+def feature_name(feature)
+  "Feature #{feature['name']} (#{feature['uri']})"
+end
+
+def tags(element)
+  return '' unless element.key? 'tags'
+  "\n\nTags: #{element['tags'].map { |tag| tag['name'] } * ' '}"
+end
+
+def table(element)
+  return '' unless element.key? 'rows'
+  cell_sizes = []
+  element['rows'].each do |row|
+    sizes = row['cells'].map { |cell| cell.length }
+    if cell_sizes == []
+      cell_sizes = sizes
+      next
+    end
+    cell_sizes = cell_sizes.zip sizes
+    cell_sizes.map! { |cells| cells.max }
+  end
+
+  result = "\n"
+
+  element['rows'].each do |row|
+    cell_with_size = row['cells'].zip cell_sizes
+    result += '| '
+    result += cell_with_size.map { |cell, size| cell.ljust(size) } * ' | '
+    result += " |\n"
+    if row == element['rows'][0]
+      result += '| '
+      result += cell_sizes.map { |size| '-' * size } * ' | '
+      result += " |\n"
+    end
+  end
+  result + "\n"
+end
+
+def description(element)
+  return '' unless element.key? 'description'
+  return '' if element['description'].strip.length == 0
+  "\n\n" + element['description'].strip
+end
+
+def steps(scenario)
+
+  def docstring(step)
+    return '' unless step.key? 'doc_string'
+    "\n" + '"""' + "\n" + step['doc_string']['value'] + "\n" + '"""'
+  end
+
+  return '' unless scenario.key? 'steps'
+
+  "\n\n" + scenario['steps'].map do |step|
+    [step['keyword'], step['name'], docstring(step), table(step)].join
+  end * "\n"
+end
+
+def examples(element)
+  return '' unless element.key? 'examples'
+  "\n\n" + element['examples'].map do |example|
+     '#### ' + example['keyword'] + ': ' + example['name'] + "\n" + table(example)
+  end * "\n"
+end
+
+def scenarios(element)
+  return '' unless element.key? 'elements'
+  element['elements'].map { |scenario_or_background| scenario(scenario_or_background) } * "\n"
+end
+
+def scenario(element)
+  elements = []
+  elements.push "\n"
+  elements.push '### '
+  elements.push element['keyword']
+  elements.push ': ' unless element['name'].empty?
+  elements.push element['name']
+  elements.push tags element
+  elements.push description element
+  elements.push steps element
+  elements.push examples element
+  return elements.join
+end
+
+%>
+<% for @feature in @features %>## <%= feature_name @feature %><%= tags @feature %><%= description @feature %>
+<%= scenarios @feature %>
+<% end %>

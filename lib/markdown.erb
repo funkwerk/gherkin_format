@@ -1,0 +1,49 @@
+<%
+def feature_name(feature)
+  "Feature #{feature['name']} (#{feature['uri']})"
+end
+
+def tags(element)
+  return '' unless element.key? 'tags'
+  "\n\nTags: #{element['tags'].map { |tag| tag['name'] } * ' '}"
+end
+
+def table(element)
+  return '' unless element.key? 'rows'
+  "\n" + element['rows'].map{ |row| "| #{row['cells'] * ' | '} |"  } * "\n"
+end
+
+def description(element)
+  return '' unless element.key? 'description'
+  return '' if element['description'].strip.length == 0
+  "\n\n" + element['description']
+end
+
+def steps(scenario)
+
+  def docstring(step)
+    return '' unless step.key? 'doc_string'
+    "\n" + '"""' + "\n" + step['doc_string']['value'] + "\n" + '"""'
+  end
+
+  return '' unless scenario.key? 'steps'
+
+  "\n" + scenario['steps'].map do |step|
+    [step['keyword'], step['name'], docstring(step), table(step)].join
+  end * "\n"
+end
+
+def examples(element)
+  return '' unless element.key? 'examples'
+  "\n" + element['examples'].map do |example|
+     '#### ' + example['keyword'] + ': ' + example['name'] + "\n" + table(example)
+  end * "\n"
+end
+%>
+<% for @feature in @features %>## <%= feature_name @feature %><%= tags @feature %>
+<%= description @feature %>
+<% for @element in @feature['elements'] %>
+### <%= @element['keyword'] %>: <%= @element['name'] %><%= tags @element %><%= description @element %>
+<%= steps @element %>
+<%= examples @element %>
+<% end %><% end %>

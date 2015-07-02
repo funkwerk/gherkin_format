@@ -1,5 +1,3 @@
-require 'rake/testtask'
-
 task default: :build
 
 desc 'Builds the Gem.'
@@ -8,23 +6,13 @@ task build:  :test do
 end
 
 task test: :rubocop
-Rake::TestTask.new do |t|
-  t.libs << 'test'
-end
-
-task test: :cli_test
-task :cli_test do
-  gherkin_format(%w(test/clean.feature))
-end
-
-def gherkin_format(args)
-  rubylib = "RUBYLIB=lib/:#{ENV['RUBYLIB']}"
-  sh "#{rubylib} bin/gherkin_format #{args.join ' '}"
+task :test do
+  sh 'cucumber'
 end
 
 desc 'Publishes the Gem'
 task :push do
-  sh 'gem push gherkin_format-1.0.0-gem'
+  sh 'gem push gherkin_format-0.0.2-gem'
 end
 
 desc 'Checks ruby style'

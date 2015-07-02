@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'gherkin_format'
-  s.version     = '0.0.1'
-  s.date        = '2015-05-19'
+  s.version     = '0.0.2'
+  s.date        = '2015-06-02'
   s.summary     = 'Gherkin Format'
   s.description = 'Format Gherkin Files'
   s.authors     = ['Stefan Rohe']
@@ -9,4 +9,5 @@ Gem::Specification.new do |s|
   s.files       = `git ls-files`.split("\n")
   s.executables = s.files.grep(%r{^bin/}) { |file| File.basename(file) }
   s.add_runtime_dependency 'gherkin', ['>= 2.12.2']
+  s.add_development_dependency 'aruba', ['>= 0.6.2']
 end

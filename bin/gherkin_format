@@ -11,9 +11,19 @@ OptionParser.new do |opts|
   opts.on('-r', '--[no-]replace', 'Replaces input files') do |replace|
     options[:replace] = replace
   end
+  opts.on('--template [TEMPLATE]', 'Renders into template') do |template|
+    options[:template] = template
+  end
 end.parse!
 
 formatter = GherkinFormat.new
+
+if options.key? :template
+  formatter.render(options[:template], ARGV)
+
+  exit 0
+end
+
 ARGV.each do |file|
   formatter.format file, options
 end

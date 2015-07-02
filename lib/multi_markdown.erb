@@ -1,0 +1,102 @@
+<%
+
+def tags(element)
+  return '' unless element.key? 'tags'
+  "\n\nTags: #{element['tags'].map { |tag| escape(tag['name']) } * ' '}"
+end
+
+def table(element, name=nil)
+  return '' unless element.key? 'rows'
+  cell_sizes = []
+  element['rows'].each do |row|
+    sizes = row['cells'].map { |cell| escape(cell).length }
+    if cell_sizes == []
+      cell_sizes = sizes
+      next
+    end
+    cell_sizes = cell_sizes.zip sizes
+    cell_sizes.map! { |cells| cells.max }
+  end
+
+  result = "\n\n"
+
+  element['rows'].each do |row|
+    cell_with_size = row['cells'].zip cell_sizes
+    result += '| '
+    result += cell_with_size.map { |cell, size| escape(cell.ljust(size)) } * ' | '
+    result += " |\n"
+    if row == element['rows'][0]
+      result += '| '
+      result += cell_sizes.map { |size| '-' * size } * ' | '
+      result += " |\n"
+    end
+  end
+  result += '[' + name +  ']' unless name.nil?
+  result + "\n"
+end
+
+def description(element)
+  return '' unless element.key? 'description'
+  return '' if element['description'].strip.length == 0
+  "\n\n" + escape(element['description'].strip).lines.map { |line| "> #{line}" }.join
+end
+
+def steps(scenario)
+
+  def docstring(step)
+    return '' unless step.key? 'doc_string'
+    "\n" + '\"\"\"' + "\n" + escape(step['doc_string']['value']).lines.map { |line| "\t#{line}" }.join + "\n" + '\"\"\"'
+  end
+
+  return '' unless scenario.key? 'steps'
+
+  "\n\n" + scenario['steps'].map do |step|
+    ['__', step['keyword'].strip, '__ ', highlight(escape(step['name'])), docstring(step), table(step)].join
+  end * "\n"
+end
+
+def escape(value)
+  value.gsub('<', '\<').gsub('>', '\>').gsub('*', '\*').gsub('#', '\#').gsub('-', '\-').gsub('[', '\[').gsub(']', '\]').gsub('|', '\|').gsub('"', '\"')
+end
+
+def highlight(value)
+  value.gsub('«', '_«').gsub('»', '»_').gsub('\<', '_\<').gsub('\>', '\>_')
+end
+
+def examples(element)
+  return '' unless element.key? 'examples'
+  "\n\n" + element['examples'].map do |example|
+    name = example['keyword'] + ': ' + escape(example['name'])
+    table(example, '_**' + name + '**_')
+  end * "\n"
+end
+
+def scenarios(element)
+  return '' unless element.key? 'elements'
+  element['elements'].map { |scenario_or_background| scenario(scenario_or_background) } * "\n"
+end
+
+def scenario(element)
+  elements = []
+  elements.push "\n"
+  elements.push '<h3 id="'
+  elements.push element['name']
+  elements.push '">'
+  elements.push element['keyword']
+  elements.push ': ' unless element['name'].empty?
+  elements.push element['name']
+  elements.push '</h3>'
+  elements.push tags element
+  elements.push description element
+  elements.push steps element
+  elements.push examples element
+  return elements.join
+end
+
+%>
+<% for @feature in @features %><h2 id="<%= @feature['name'] %>"><%= @feature['name'] %></h2>
+
+Source\: <%= @feature['uri'] %><%= tags @feature %><%= description @feature %>
+<%= scenarios @feature %>
+<hr />
+<% end %>
