@@ -39,11 +39,15 @@ def examples(element)
      '#### ' + example['keyword'] + ': ' + example['name'] + "\n" + table(example)
   end * "\n"
 end
+
+def scenarios(feature)
+  return '' unless feature.key? 'elements'
+  feature['elements'].map do |element|
+    "### #{element['keyword']}: #{element['name']}#{tags(element)}#{description(element)}\n#{steps(element)}\n#{examples(element)}"
+  end.join ''
+end
 %>
 <% for @feature in @features %>## <%= feature_name @feature %><%= tags @feature %>
 <%= description @feature %>
-<% for @element in @feature['elements'] %>
-### <%= @element['keyword'] %>: <%= @element['name'] %><%= tags @element %><%= description @element %>
-<%= steps @element %>
-<%= examples @element %>
-<% end %><% end %>
+<%= scenarios @feature %>
+<% end %>
