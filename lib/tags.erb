@@ -1,0 +1,6 @@
+<%
+def tags(element)
+  return '' unless element.key? 'tags'
+  element['tags'].map { |tag| tag['name'][1..-1] } * "\n"
+end
+%><% for @feature in @features %><%= tags @feature %><% end %>
