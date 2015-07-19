@@ -23,7 +23,9 @@ formatter = GherkinFormat.new
 
 if options.key? :json
   fail 'Provide exactly one file' unless ARGV.length == 1
-  puts formatter.to_json(File.read(ARGV.first), ARGV.first)
+  require 'multi_json'
+  feature = formatter.to_json(File.read(ARGV.first), ARGV.first)
+  puts MultiJson.dump feature.first
 
   exit 0
 end
