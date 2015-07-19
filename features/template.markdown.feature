@@ -63,7 +63,6 @@ Feature: Markdown Template
 
       Given something
 
-
       ### Scenario: Bar
 
       Given a foo

@@ -14,9 +14,19 @@ OptionParser.new do |opts|
   opts.on('--template [TEMPLATE]', 'Renders into template') do |template|
     options[:template] = template
   end
+  opts.on('--json', 'Renders to Json') do |json|
+    options[:json] = json
+  end
 end.parse!
 
 formatter = GherkinFormat.new
+
+if options.key? :json
+  fail 'Provide exactly one file' unless ARGV.length == 1
+  puts formatter.to_json(File.read(ARGV.first), ARGV.first)
+
+  exit 0
+end
 
 if options.key? :template
   formatter.render(options[:template], ARGV)
