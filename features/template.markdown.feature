@@ -37,7 +37,6 @@ Feature: Markdown Template
       Then I baz
 
 
-
       """
 
   Scenario: Extract Sentences with background
@@ -68,7 +67,6 @@ Feature: Markdown Template
       Given a foo
       When I bar
       Then I baz
-
 
 
       """
@@ -105,8 +103,6 @@ Feature: Markdown Template
       | foo | bar | baz |
       | FOO | BAR | BAZ |
       | oof | rab | zab |
-
-
       """
 
   Scenario: Extract Sentences considers description
@@ -138,7 +134,6 @@ Feature: Markdown Template
       Given a foo
       When I bar
       Then I baz
-
 
 
       """
@@ -176,7 +171,6 @@ Feature: Markdown Template
       Given a foo
       When I bar
       Then I baz
-
 
 
       """

@@ -1,3 +1,5 @@
+gem 'gherkin', '= 2.12.2'
+
 require 'gherkin/formatter/json_formatter'
 require 'gherkin/formatter/pretty_formatter'
 require 'gherkin/parser/parser'
@@ -22,7 +24,7 @@ class GherkinFormat
 
     if options.key? :replace
       File.write("#{file}_orig", input)
-      File.write("#{file}", output)
+      File.write(file, output)
     end
 
     puts "File #{file} is not formatted well."

@@ -36,7 +36,6 @@ Feature: Template for Multi Markdown Without Highlight
       When I bar
       Then I baz
 
-
       """
 
   Scenario: Extract Sentences with background
@@ -66,7 +65,6 @@ Feature: Template for Multi Markdown Without Highlight
       Given a foo
       When I bar
       Then I baz
-
 
       """
 
@@ -105,7 +103,6 @@ Feature: Template for Multi Markdown Without Highlight
 
 
 
-
       """
 
   Scenario: Extract Sentences considers description
@@ -136,7 +133,6 @@ Feature: Template for Multi Markdown Without Highlight
       Given a foo
       When I bar
       Then I baz
-
 
       """
 
@@ -172,6 +168,5 @@ Feature: Template for Multi Markdown Without Highlight
       Given a foo
       When I bar
       Then I baz
-
 
       """

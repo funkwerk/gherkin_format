@@ -37,8 +37,6 @@ Feature: Multi Markdown Template
       __When__ I _«bar»_
       __Then__ I baz
       <hr />
-
-
       """
 
   Scenario: Extract Sentences with background
@@ -71,8 +69,6 @@ Feature: Multi Markdown Template
       __When__ I bar
       __Then__ I baz
       <hr />
-
-
       """
 
   Scenario: Extract Sentences from outlines
@@ -112,8 +108,6 @@ Feature: Multi Markdown Template
       [_**Examples: table**_]
 
       <hr />
-
-
       """
 
   Scenario: Extract Sentences considers description
@@ -147,8 +141,6 @@ Feature: Multi Markdown Template
       __When__ I bar
       __Then__ I baz
       <hr />
-
-
       """
 
   Scenario: Extract Sentences considers scenario description
@@ -186,6 +178,4 @@ Feature: Multi Markdown Template
       __When__ I bar
       __Then__ I baz
       <hr />
-
-
       """
