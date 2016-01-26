@@ -3,9 +3,11 @@ gem 'gherkin', '= 2.12.2'
 require 'gherkin/formatter/json_formatter'
 require 'gherkin/formatter/pretty_formatter'
 require 'gherkin/parser/parser'
+require 'term/ansicolor'
 require 'stringio'
 require 'multi_json'
 require 'erb'
+include Term::ANSIColor
 
 # format gherkin files
 class GherkinFormat
@@ -27,8 +29,7 @@ class GherkinFormat
       File.write(file, output)
     end
 
-    puts "File #{file} is not formatted well."
-    fail "File #{file} is not formatted well."
+    puts red "File #{file} is not formatted well."
   end
 
   def render(template, files)
