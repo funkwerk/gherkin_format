@@ -48,7 +48,7 @@ def scenarios(feature)
 end
 
 def escape(value)
-  value.gsub('<', '\<').gsub('>', '\>').gsub('*', '\*').gsub('#', '\#').gsub('-', '\-').gsub('[', '\[').gsub(']', '\]').gsub('|', '\|').gsub('"', '\"')
+  value.gsub('<', '\<').gsub('>', '\>').gsub('*', '\*').gsub('#', '\#').gsub('-', '\-').gsub('[', '\[').gsub(']', '\]').gsub('|', '\|').gsub('"', '\"').gsub('_', '\_')
 end
 
 def highlight(value)
