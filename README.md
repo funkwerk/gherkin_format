@@ -2,6 +2,8 @@ Formatter for Gherkin Files
 ===========================
 
 [![Build Status](https://travis-ci.org/funkwerk/gherkin_format.svg)](https://travis-ci.org/funkwerk/gherkin_format)
+[![Downloads](https://img.shields.io/gem/dt/gherkin_format.svg)](https://rubygems.org/gems/gherkin_format)
+[![Latest Tag](https://img.shields.io/github/tag/funkwerk/gherkin_format.svg)](https://rubygems.org/gems/gherkin_format)
 
 This tool formats gherkin files.
 
