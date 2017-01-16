@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rubocop'
+gem 'aruba'
 gem 'gherkin', '=2.12.2'
 gem 'rake'
-gem 'aruba'
+gem 'rubocop'
