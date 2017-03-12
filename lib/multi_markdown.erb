@@ -56,7 +56,7 @@ def steps(scenario)
 end
 
 def escape(value)
-  value.gsub('<', '\<').gsub('>', '\>').gsub('*', '\*').gsub('#', '\#').gsub('-', '\-').gsub('[', '\[').gsub(']', '\]').gsub('|', '\|').gsub('"', '\"')
+  value.gsub('_', '\_').gsub('<', '\<').gsub('>', '\>').gsub('*', '\*').gsub('#', '\#').gsub('-', '\-').gsub('[', '\[').gsub(']', '\]').gsub('|', '\|').gsub('"', '\"')
 end
 
 def highlight(value)
