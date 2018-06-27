@@ -29,7 +29,7 @@ class GherkinFormat
       puts "File #{file} is not formatted well. Re-run with --replace"
     end
 
-    fail_with "Terminating. Some files may not have been checked."
+    fail_with 'Terminating. Some files may not have been checked.'
   end
 
   def fail_with(message)
