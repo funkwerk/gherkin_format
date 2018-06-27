@@ -22,10 +22,12 @@ class GherkinFormat
     output = format_string input, file
     return if input == output
 
-    File.write(file, output) if options.key? :replace
-
-    puts "File #{file} is not formatted well."
-    raise "File #{file} is not formatted well."
+    if options.key? :replace
+      File.write(file, output)
+      puts "File #{file} was not formatted well. Fixed it for you!"
+    else
+      puts "File #{file} is not formatted well."
+    end
   end
 
   def render(template, files)
