@@ -26,8 +26,11 @@ class GherkinFormat
       File.write(file, output)
       puts "File #{file} was not formatted well. Fixed it for you!"
     else
-      puts "File #{file} is not formatted well."
+      puts "File #{file} is not formatted well. Please fix or re-run me with --replace switch."
     end
+
+    puts "Terminating. Some files may not have been checked yet, please consider a re-run."
+    exit 1
   end
 
   def render(template, files)
