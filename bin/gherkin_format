@@ -36,15 +36,15 @@ if options.key? :template
   exit 0
 end
 
-exitCode = 0
+exit_code = 0
 
 ARGV.each do |file|
   begin
     formatter.format file, options
   rescue StandardError => e
     puts e.message
-    exitCode = 1
+    exit_code = 1
   end
 end
 
-exit exitCode
+exit exit_code
