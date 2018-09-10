@@ -24,17 +24,10 @@ class GherkinFormat
 
     if options.key? :replace
       File.write(file, output)
-      puts "File #{file} was not formatted well. Fixed it for you!"
+      raise "File #{file} was not formatted well. Fixed it!"
     else
-      puts "File #{file} is not formatted well. Re-run with --replace"
+      raise "File #{file} is not formatted well. To fix, re-run with --replace"
     end
-
-    fail_with 'Terminating. Some files may not have been checked.'
-  end
-
-  def fail_with(message)
-    puts message
-    exit 1
   end
 
   def render(template, files)
